@@ -9,28 +9,37 @@ import UIKit
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let tabBarController = UITabBarController()
+        self.window?.rootViewController = tabBarController
+        
+        let feedVC = FeedViewController()
+        feedVC.view.backgroundColor = .yellow
+        
+        
+        let profileVC = ProfileViewController()
+        profileVC.view.backgroundColor = .lightGray
+
+        
+        let feedNC = UINavigationController(rootViewController: feedVC)
+        let profileNC = UINavigationController(rootViewController: profileVC)
+        feedNC.tabBarItem = UITabBarItem(title: "Feed", image: .checkmark, tag: 0)
+        profileNC.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(named: "icons8-game_controller"), tag: 1)
+        tabBarController.viewControllers = [feedNC, profileNC]
+        
+        let viewController = UIViewController()
+        viewController.view.backgroundColor = .red
+        
+//        nav1.setViewControllers([viewController], animated: true)
+        
+        self.window?.makeKeyAndVisible()
+
         return true
     }
-
-    // MARK: UISceneSession Lifecycle
-
-    func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
-        // Called when a new scene session is being created.
-        // Use this method to select a configuration to create the new scene with.
-        return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
-    }
-
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
 
 }
 
